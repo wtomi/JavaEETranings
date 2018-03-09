@@ -1,3 +1,5 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -28,6 +30,19 @@
         I said,<br/>
         Something wrong, now I long for yesterday.<br/>
 
-        <a href="yesterday.html">powrót</a>
-    </body>
+        <p>
+            Released: <fmt:formatDate value="${releaseDate}" type="date" dateStyle="default"/>
+        </p>
+        
+        <c:if test="${!empty members}">
+            <table border>
+                <tr><th>The Beatles</th></tr>
+                <c:forEach var="member" items="${members}">
+                    <tr><td>${member}</td></tr>
+                </c:forEach>
+            </table>
+        </c:if>
+
+<a href="yesterday.html">powrót</a>
+</body>
 </html>
