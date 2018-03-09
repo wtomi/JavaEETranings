@@ -33,16 +33,23 @@
         <p>
             Released: <fmt:formatDate value="${releaseDate}" type="date" dateStyle="default"/>
         </p>
-        
-        <c:if test="${!empty members}">
-            <table border>
-                <tr><th>The Beatles</th></tr>
-                <c:forEach var="member" items="${members}">
-                    <tr><td>${member}</td></tr>
-                </c:forEach>
-            </table>
-        </c:if>
 
-<a href="yesterday.html">powrót</a>
-</body>
+        <c:if test="${!empty members}">
+            <c:choose>
+                <c:when test="${border.borderVisible}">
+                    <table border>
+                </c:when>
+                <c:otherwise>
+                    <table>
+                </c:otherwise>
+            </c:choose>
+                    <tr><th>The Beatles</th></tr>
+                            <c:forEach var="member" items="${members}">
+                        <tr><td>${member}</td></tr>
+                    </c:forEach>
+                </table>
+            </c:if>
+
+            <a href="yesterday.html">powrót</a>
+    </body>
 </html>

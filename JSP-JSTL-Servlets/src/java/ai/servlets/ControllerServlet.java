@@ -1,5 +1,6 @@
 package ai.servlets;
 
+import ai.beans.BorderBean;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -44,6 +45,10 @@ public class ControllerServlet extends HttpServlet {
         myBean.setForegroundColor(request.getParameter("foreColor"));
         myBean.setBackgroundColor(request.getParameter("backColor"));
         request.setAttribute("bean", myBean);
+        
+        BorderBean borderBean = new BorderBean();
+        borderBean.setBorderVisible("tak".equals(request.getParameter("borderVisible")));
+        request.setAttribute("border", borderBean);
 
         ServletContext ctx = this.getServletContext();
         RequestDispatcher dispatcher
