@@ -42,4 +42,10 @@ public class HelloWorldServlet extends HttpServlet {
         out.println("</html>");
         out.close();
     }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
+    }
 }
