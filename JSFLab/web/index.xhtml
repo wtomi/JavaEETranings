@@ -1,19 +1,34 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Login Page</title>
     </h:head>
     <h:body>
         <h:form>
-            <h:panelGrid columns="2">
+            <h:panelGrid columns="3">
                 <h:outputLabel for="usernameField" value="Username"/>
-                <h:inputText id="usernameField"  value="#{loginBean.username}"/>
+                <h:inputText id="usernameField"  value="#{loginBean.username}" 
+                             required="true"/>
+                <h:message for="usernameField"/> 
                 <h:outputLabel for="passwordField" value="Password"/>
-                <h:inputText id="passwordField" value="#{loginBean.password}"/>
-                <h:commandButton id="loginButton" value="Log in" action="#{loginBean.login()}"/>
+                <h:inputSecret id="passwordField" value="#{loginBean.password}">
+                    <f:validateLength minimum="4" maximum="6"/>
+                </h:inputSecret>
+                <h:message for="passwordField"/>
+                <h:commandButton id="loginButton" value="Log in" 
+                                 action="#{loginBean.login()}" 
+                                 binding="#{loginBean.loginButton}" 
+                                 disabled="true"/>
             </h:panelGrid>
+            <h:selectBooleanCheckbox id="acceptCheckBox"
+                                     binding="#{loginBean.acceptCheckBox}" 
+                                     valueChangeListener="#{loginBean.activateButton}" 
+                                     onchange="submit()"
+                                     immediate="true"/>
+            <h:outputText value="I accept the terms of service"/>
         </h:form>
     </h:body>
 </html>
