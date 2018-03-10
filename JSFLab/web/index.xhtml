@@ -9,10 +9,10 @@
         <h:form>
             <h:panelGrid columns="2">
                 <h:outputLabel for="usernameField" value="Username"/>
-                <h:inputText id="usernameField"/>
+                <h:inputText id="usernameField"  value="#{loginBean.username}"/>
                 <h:outputLabel for="passwordField" value="Password"/>
-                <h:inputText id="passwordField"/>
-                <h:commandButton id="loginButton" value="Log in"/>
+                <h:inputText id="passwordField" value="#{loginBean.password}"/>
+                <h:commandButton id="loginButton" value="Log in" action="success.xhtml"/>
             </h:panelGrid>
         </h:form>
     </h:body>
