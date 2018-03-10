@@ -24,6 +24,14 @@ public class LoginBean {
      */
     public LoginBean() {
     }
+    
+    public String login() {
+        if(username.equals(password)) {
+            return "success.xhtml";
+        } else {
+            return "failure.xhtml";
+        }
+    }
 
     /**
      * @return the password

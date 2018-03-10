@@ -12,7 +12,7 @@
                 <h:inputText id="usernameField"  value="#{loginBean.username}"/>
                 <h:outputLabel for="passwordField" value="Password"/>
                 <h:inputText id="passwordField" value="#{loginBean.password}"/>
-                <h:commandButton id="loginButton" value="Log in" action="success.xhtml"/>
+                <h:commandButton id="loginButton" value="Log in" action="#{loginBean.login()}"/>
             </h:panelGrid>
         </h:form>
     </h:body>
