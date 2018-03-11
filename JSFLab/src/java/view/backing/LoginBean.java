@@ -5,8 +5,10 @@
  */
 package view.backing;
 
+import java.util.ResourceBundle;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.component.html.HtmlSelectBooleanCheckbox;
 import javax.faces.context.FacesContext;
@@ -34,6 +36,13 @@ public class LoginBean {
     public String login() {
         if (getUsername().equals(getPassword())) {
             return "success.xhtml";
+        } else if ("scott".equals(username) && "tiger".equals(password)) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            ResourceBundle bundle = ResourceBundle.getBundle("ApplicationMessages", context.getViewRoot().getLocale());
+            String messageText = bundle.getString("error.login");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, messageText, null);
+            context.addMessage(null, message);
+            return null;
         } else {
             return "failure.xhtml";
         }
@@ -104,5 +113,4 @@ public class LoginBean {
     public void setLoginButton(HtmlCommandButton loginButton) {
         this.loginButton = loginButton;
     }
-
 }
