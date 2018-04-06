@@ -22,6 +22,12 @@ import javax.persistence.Table;
 @NamedQuery(name= "findByKeyword", query = "select b from Bug b where b.description like :keyword")
 public class Bug implements Serializable {
 
+    public Bug(Long id, String num, String description) {
+        this.id = id;
+        this.num = num;
+        this.description = description;
+    }
+
     private static long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

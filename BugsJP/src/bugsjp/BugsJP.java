@@ -5,6 +5,7 @@
  */
 package bugsjp;
 
+import encje.Bug;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -15,7 +16,7 @@ import javax.persistence.Persistence;
  */
 public class BugsJP {
     
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("BugsJPPU");
+    private static final EntityManagerFactory EMF = Persistence.createEntityManagerFactory("BugsJPPU");
 
     /**
      * @param args the command line arguments
@@ -23,10 +24,14 @@ public class BugsJP {
     public static void main(String[] args) {
         // TODO code application logic here
     }
+    
+    public static void addBug(String number, String description) {
+        Bug bug = new Bug(0L, number, description);
+        persist(bug);
+    }
 
-    public void persist(Object object) {
-        
-        EntityManager em = emf.createEntityManager();
+    public static void persist(Object object) {
+        EntityManager em = EMF.createEntityManager();
         em.getTransaction().begin();
         try {
             em.persist(object);
