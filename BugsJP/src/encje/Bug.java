@@ -19,8 +19,11 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="BUGS")
-@NamedQuery(name= "findByKeyword", query = "select b from Bug b where b.description like :keyword")
+@NamedQuery(name= "Bug.findByKeyword", query = "select b from Bug b where b.description like :keyword")
 public class Bug implements Serializable {
+
+    public Bug() {
+    }
 
     public Bug(Long id, String num, String description) {
         this.id = id;
