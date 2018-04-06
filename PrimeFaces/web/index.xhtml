@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <p:tabView>
+            <p:tab title="Formularz">
+                <h:form>
+                    <p:growl id="growl" showDetail="true" sticky="true"/>
+                    <h:panelGrid columns="4" cellpadding="10">
+                        <p:spinner  id="firstElement" value="#{formBean.firstElement}"/>
+                        <p:spinner  id="secondElement" value="#{formBean.secondElement}"/>
+                        <p:commandButton value="Oblicz" update="additionResult date growl" action="#{formBean.performAddition()}"/>
+                        <h:outputText id="additionResult" value="= #{formBean.additionResult}"/>
+                    </h:panelGrid>
+                    <h:outputText id="date" value="#{formBean.date}"/>
+                </h:form>
+            </p:tab>
+            <p:tab title="Tabela">
+                <h:form id="tableForm">
+                    <p:dataTable var="student" value="#{tableView.lazyModel}" paginator="true" rows="3"
+                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                 rowsPerPageTemplate="3,5,10" id="studentTable" lazy="true">
+                        <p:column headerText="Nazwisko" sortBy="#{student.lastName}">
+                            <h:outputText value="#{student.lastName}" />
+                        </p:column>
+                        <p:column headerText="Imie">
+                            <h:outputText value="#{student.firstName}" />
+                        </p:column>
+                        <p:column headerText="Srednia" sortBy="#{student.averageGrade}">
+                            <h:outputText value="#{student.averageGrade}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:tab>
+            <p:tab title="Wykres">
+                <h:form>
+                    <p:chart type="line" model="#{chartView.chartModel}" style="height:300px;" widgetVar="chart"/>
+                    <p:commandButton type="button" value="Reset" icon="ui-icon-cancel" onclick="PF('chart').resetZoom()"/>
+                </h:form>
+            </p:tab>
+        </p:tabView>
+    </h:body>
+</html>
+
