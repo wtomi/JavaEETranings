@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -24,6 +25,7 @@ class Performer implements Serializable {
     
     private String name;
     
+    @OneToMany(mappedBy = "performer")
     private Collection<Album> albums;
 
     public Long getId() {

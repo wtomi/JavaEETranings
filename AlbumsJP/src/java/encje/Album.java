@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -22,9 +23,10 @@ public class Album implements Serializable {
     
     private String title;
     
+    @ManyToOne
     private Performer performer;
     
-    private int year;
+    private int albumYear;
 
     private static long serialVersionUID = 1L;
     @Id
@@ -93,20 +95,6 @@ public class Album implements Serializable {
     }
 
     /**
-     * @return the year
-     */
-    public int getYear() {
-        return year;
-    }
-
-    /**
-     * @param year the year to set
-     */
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    /**
      * @return the serialVersionUID
      */
     public static long getSerialVersionUID() {
@@ -118,6 +106,20 @@ public class Album implements Serializable {
      */
     public static void setSerialVersionUID(long aSerialVersionUID) {
         serialVersionUID = aSerialVersionUID;
+    }
+
+    /**
+     * @return the albumYear
+     */
+    public int getAlbumYear() {
+        return albumYear;
+    }
+
+    /**
+     * @param albumYear the albumYear to set
+     */
+    public void setAlbumYear(int albumYear) {
+        this.albumYear = albumYear;
     }
     
 }
