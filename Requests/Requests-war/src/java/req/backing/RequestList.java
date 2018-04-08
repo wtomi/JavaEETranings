@@ -12,6 +12,7 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.component.html.HtmlDataTable;
 import javax.inject.Inject;
+import javax.validation.constraints.Size;
 import req.facade.RequestsFacadeLocal;
 
 import req.entities.Requests;
@@ -27,6 +28,7 @@ public class RequestList {
     @Inject
     private RequestsFacadeLocal requestsFacade;
 
+    @Size(min = 3, max = 128, message = "Message text must be from 3 to 128\n characters long.")
     private String newRequest;
 
     private HtmlDataTable requestDataTable;

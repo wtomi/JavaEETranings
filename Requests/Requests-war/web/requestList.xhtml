@@ -12,6 +12,9 @@
             <h:outputText value="New request"/>
             <h:inputText id="newReqInputText" value="#{requestList.newRequest}"/>
             <h:commandButton value="Add" action="#{requestList.addRequest}"/>
+            <h:message for="newReqInputText"/>
+        </h:form>
+        <h:form>
             <h:dataTable value="#{requestList.allRequests}" var="item" border="1"
                          binding="#{requestList.requestDataTable}">
                 <h:column>
