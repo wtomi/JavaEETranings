@@ -6,11 +6,18 @@
 package bugsjp;
 
 import encje.Bug;
+import encje.Bug_;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
 
 /**
  *
@@ -28,6 +35,19 @@ public class BugsJP {
             System.out.println("Number: " + b.getNum()
                     + " Description: " + b.getDescription());
         }
+
+        System.out.println("Strong ************");
+
+        findBugsCriteriaStrong("%wifi%").stream()
+                .forEach(b -> System.out.println("Number: " + b.getNum()
+                + " Description: " + b.getDescription()));
+
+        System.out.println("Weak ************");
+
+        findBugsCriteriaWeak("%wifi%").stream()
+                .forEach(b -> System.out.println("Number: " + b.getNum()
+                + " Description: " + b.getDescription()));
+
         bulkDeleteBugs();
     }
 
@@ -45,6 +65,28 @@ public class BugsJP {
         } finally {
             em.close();
         }
+    }
+
+    public static List<Bug> findBugsCriteriaStrong(String keyword) {
+        EntityManager em = EMF.createEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Bug> cq = cb.createQuery(Bug.class);
+        Root<Bug> bug = cq.from(Bug.class);
+        cq.select(bug).where(cb.like(bug.get(Bug_.description), keyword));
+        TypedQuery<Bug> q = em.createQuery(cq);
+        return q.getResultList();
+    }
+
+    public static List<Bug> findBugsCriteriaWeak(String keyword) {
+        EntityManager em = EMF.createEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Bug> cq = cb.createQuery(Bug.class);
+        Root<Bug> bug = cq.from(Bug.class);
+        ParameterExpression<String> pe = cb.parameter(String.class);
+        cq.select(bug).where(cb.like(bug.get("description"), pe));
+        TypedQuery<Bug> q = em.createQuery(cq);
+        q.setParameter(pe, keyword);
+        return q.getResultList();
     }
 
     public static void bulkDeleteBugs() {

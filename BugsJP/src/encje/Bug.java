@@ -34,11 +34,11 @@ public class Bug implements Serializable {
     private static long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    protected Long id;
     
-    private String num;
+    protected String num;
     
-    private String description;
+    protected String description;
 
     public Long getId() {
         return id;
