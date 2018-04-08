@@ -20,7 +20,6 @@ import javax.persistence.OneToMany;
 @Entity
 public class Performer implements Serializable {
 
-    private static long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -61,20 +60,6 @@ public class Performer implements Serializable {
     @Override
     public String toString() {
         return "encje.Performer[ id=" + getId() + " ]";
-    }
-
-    /**
-     * @return the serialVersionUID
-     */
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    /**
-     * @param aSerialVersionUID the serialVersionUID to set
-     */
-    public static void setSerialVersionUID(long aSerialVersionUID) {
-        serialVersionUID = aSerialVersionUID;
     }
 
     /**

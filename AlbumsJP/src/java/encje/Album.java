@@ -5,7 +5,6 @@
  */
 package encje;
 
-import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ALBUMY")
-public class Album implements Serializable {
+public class Album {
     
     private String title;
     
@@ -28,7 +27,6 @@ public class Album implements Serializable {
     
     private int albumYear;
 
-    private static long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -92,20 +90,6 @@ public class Album implements Serializable {
      */
     public void setPerformer(Performer performer) {
         this.performer = performer;
-    }
-
-    /**
-     * @return the serialVersionUID
-     */
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    /**
-     * @param aSerialVersionUID the serialVersionUID to set
-     */
-    public static void setSerialVersionUID(long aSerialVersionUID) {
-        serialVersionUID = aSerialVersionUID;
     }
 
     /**
