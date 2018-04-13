@@ -11,6 +11,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.jms.Connection;
 import javax.jms.*;
@@ -30,8 +31,8 @@ public class News {
     @EJB
     private NewsItemFacadeLocal newsItemFacade;
 
-    @Resource(lookup = "java:comp/DefaultJMSConnectionFactory")
-    private ConnectionFactory connectionFactory;
+    @Inject
+    private JMSContext context;
 
     @Resource(lookup = "java:app/jms/NewsQueue")
     private javax.jms.Queue queue;
@@ -45,15 +46,13 @@ public class News {
     }
 
     void sendNewsItem(String heading, String body) {
-        try (Connection connection = connectionFactory.createConnection();
-                Session session = connection.createSession();
-                MessageProducer messageProducer = session.createProducer(queue);) {
-            ObjectMessage message = session.createObjectMessage();
+        try {
+            ObjectMessage message = context.createObjectMessage();
             NewsItem e = new NewsItem();
             e.setHeading(heading);
             e.setBody(body);
             message.setObject(e);
-            messageProducer.send(message);
+            context.createProducer().send(queue, message);
         } catch (JMSException ex) {
             ex.printStackTrace();
         }
