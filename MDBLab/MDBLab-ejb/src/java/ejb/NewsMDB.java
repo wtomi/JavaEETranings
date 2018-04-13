@@ -11,7 +11,7 @@ import javax.jms.JMSDestinationDefinition;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import javax.jms.ObjectMessage;
+import javax.jms.TextMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -35,12 +35,16 @@ public class NewsMDB implements MessageListener {
 
     @Override
     public void onMessage(Message message) {
-        ObjectMessage msg = null;
         try {
-            if (message instanceof ObjectMessage) {
-                msg = (ObjectMessage) message;
-                NewsItem e = (NewsItem) msg.getObject();
-                saveObject(e);
+            if (message instanceof TextMessage) {
+                TextMessage msg = (TextMessage) message;
+                String[] elements = msg.getText().split("\\|");
+                NewsItem newsItem = new NewsItem();
+                String heading = elements[0];
+                String body = elements[1];
+                newsItem.setHeading(heading);
+                newsItem.setBody(body);
+                saveObject(newsItem);
             }
         } catch (JMSException e) {
             e.printStackTrace();

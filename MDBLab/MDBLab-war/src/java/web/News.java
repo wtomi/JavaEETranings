@@ -13,7 +13,6 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.jms.Connection;
 import javax.jms.*;
 
 /**
@@ -47,11 +46,8 @@ public class News {
 
     void sendNewsItem(String heading, String body) {
         try {
-            ObjectMessage message = context.createObjectMessage();
-            NewsItem e = new NewsItem();
-            e.setHeading(heading);
-            e.setBody(body);
-            message.setObject(e);
+            TextMessage message = context.createTextMessage();
+            message.setText(heading + "|" + body);
             context.createProducer().send(queue, message);
         } catch (JMSException ex) {
             ex.printStackTrace();
