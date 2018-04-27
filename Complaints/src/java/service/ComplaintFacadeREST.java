@@ -18,6 +18,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -63,10 +64,15 @@ public class ComplaintFacadeREST extends AbstractFacade<Complaint> {
     }
 
     @GET
-    @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Complaint> findAll() {
-        return super.findAll();
+    public List<Complaint> findAll(@QueryParam("status") String status) {
+        if (status != null && !"".equals(status)) {
+            return em.createNamedQuery("Complaint.findByStatus")
+                    .setParameter("status", status)
+                    .getResultList();
+        } else {
+            return super.findAll();
+        }
     }
 
     @GET
