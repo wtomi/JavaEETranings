@@ -25,7 +25,7 @@ import javax.ws.rs.core.MediaType;
  * @author Tomi
  */
 @Stateless
-@Path("complaint")
+@Path("complaints")
 public class ComplaintFacadeREST extends AbstractFacade<Complaint> {
 
     @PersistenceContext(unitName = "ComplaintsPU")
@@ -83,9 +83,16 @@ public class ComplaintFacadeREST extends AbstractFacade<Complaint> {
         return String.valueOf(super.count());
     }
 
+    @GET
+    @Path("{id}/status")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String checkStatus(@PathParam("id") Integer id) {
+        return super.find(id).getStatus();
+    }
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }
